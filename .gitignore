@@ -2,3 +2,4 @@ build/
 .vscode
 tests/
 test.txt
+input.txt
