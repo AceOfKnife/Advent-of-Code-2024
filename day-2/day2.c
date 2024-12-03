@@ -120,6 +120,7 @@ int main() {
         }
     }
     free(nums);
+    fclose(fptr);
     printf("Safe reports: %d\n", safe);
     printf("Saved reports: %d\n", saved);
     return 0;

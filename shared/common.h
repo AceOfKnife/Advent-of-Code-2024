@@ -8,5 +8,6 @@
 #include <math.h>
 #include <limits.h>
 #include <float.h>
+#include <ctype.h>
 
 #endif
