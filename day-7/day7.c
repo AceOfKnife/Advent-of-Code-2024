@@ -85,6 +85,7 @@ int main() {
     }
     free(input_nums);
     free(col_sizes);
+    fclose(fptr);
 
     printf("Total calibration result: %ld\n", result);
     printf("New total calibration result: %ld\n", new_result);
