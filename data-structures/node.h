@@ -5,7 +5,7 @@
 
 typedef struct Node 
 {
-    int val;
+    long long val;
     struct Node* next;
     struct Node* prev;
 } Node;

@@ -13,16 +13,24 @@ typedef struct
 
 LinkedList* createLinkedList();
 
-void pushLeft(LinkedList* linkedList, int val);
+void pushLeft(LinkedList* linkedList, long long val);
 
-void pushRight(LinkedList* linkedList, int val);
+void pushRight(LinkedList* linkedList, long long val);
 
-int popLeft(LinkedList* linkedList);
+void pushAt(LinkedList* linkedList, long long val, int index);
 
-int popRight(LinkedList* linkedList);
+long long popLeft(LinkedList* linkedList);
+
+long long popRight(LinkedList* linkedList);
+
+long long popAt(LinkedList* linkedList, int index);
+
+void popVal(LinkedList* linkedList, long long val);
 
 int getSize(LinkedList* linkedList);
 
 void freeList(LinkedList* linkedList);
+
+void printList(LinkedList* linkedList);
 
 #endif

@@ -25,7 +25,7 @@ LinkedList* createLinkedList()
     return linkedList;
 }
 
-void pushLeft(LinkedList* linkedList, int val)
+void pushLeft(LinkedList* linkedList, long long val)
 {
     Node* node = (Node*)malloc(sizeof(Node)); 
     Node* prevHead = linkedList->head->next;
@@ -39,7 +39,7 @@ void pushLeft(LinkedList* linkedList, int val)
     linkedList->size++;
 }
 
-void pushRight(LinkedList* linkedList, int val)
+void pushRight(LinkedList* linkedList, long long val)
 {
     Node* node = (Node*)malloc(sizeof(Node)); 
     Node* prevTail = linkedList->tail->prev;
@@ -53,7 +53,32 @@ void pushRight(LinkedList* linkedList, int val)
     linkedList->size++;
 }
 
-int popLeft(LinkedList* linkedList)
+void pushAt(LinkedList* linkedList, long long val, int index) 
+{
+    if (linkedList->size <= index) {
+        printf("ERROR: INDEX OUT OF BOUNDS\n");
+        return;
+    }
+    Node* node = (Node*)malloc(sizeof(Node));
+    node->val = val;
+
+    Node* curNode = linkedList->head->next;
+    int i = 0;
+    while (curNode != linkedList->tail && i < index) 
+    {
+        curNode = curNode->next;
+        i++;
+    }
+
+    Node* prevNode = curNode->prev;
+    prevNode->next = node;
+    curNode->prev = node;
+    node->prev = prevNode;
+    node->next = curNode;
+    linkedList->size++;
+}
+
+long long popLeft(LinkedList* linkedList)
 {
     if (linkedList->size == 0) 
     {
@@ -65,12 +90,12 @@ int popLeft(LinkedList* linkedList)
     linkedList->head->next = node->next;
     node->next->prev = linkedList->head;
     linkedList->size--;
-    int val = node->val;
+    long long val = node->val;
     free(node);
     return val;
 }
 
-int popRight(LinkedList* linkedList)
+long long popRight(LinkedList* linkedList)
 {
     if (linkedList->size == 0) 
     {
@@ -82,9 +107,48 @@ int popRight(LinkedList* linkedList)
     linkedList->tail->prev = node->prev;
     node->prev->next = linkedList->tail;
     linkedList->size--;
-    int val = node->val;
+    long long val = node->val;
     free(node);
     return val;
+}
+
+long long popAt(LinkedList* linkedList, int index)
+{
+    if (linkedList->size <= index) {
+        printf("ERROR: INDEX OUT OF BOUNDS\n");
+        return -1;
+    }
+
+    Node* curNode = linkedList->head->next;
+    int i = 0;
+    while (curNode != linkedList->tail && i < index)
+    {
+        curNode = curNode->next;
+        i++;
+    }
+    Node* prevNode = curNode->prev;
+    Node* nextNode = curNode->next;
+
+    prevNode->next = nextNode;
+    nextNode->prev = prevNode;
+
+    long long val = curNode->val;
+    free(curNode);
+    linkedList->size--;
+    return val;
+}
+
+void popVal(LinkedList* linkedList, long long val)
+{
+    Node* curNode = linkedList->head->next;
+    while (curNode != linkedList->tail) {
+        if (curNode->val == val) {
+            curNode->prev->next = curNode->next;
+            curNode->next->prev = curNode->prev;
+            free(curNode);
+            return;
+        }
+    }
 }
 
 int getSize(LinkedList* linkedList)
@@ -104,4 +168,16 @@ void freeList(LinkedList* linkedList)
     }
     
     free(linkedList);
+}
+
+void printList(LinkedList* linkedList)
+{
+    Node* curNode = linkedList->head->next;
+    printf("[");
+    while (curNode != linkedList->tail)
+    {
+        printf(" %lld ", curNode->val);
+        curNode = curNode->next;
+    }
+    printf(" ]\n");
 }
