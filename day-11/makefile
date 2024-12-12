@@ -6,8 +6,8 @@ BUILD_DIR = ./build
 TARGET = $(BUILD_DIR)/test
 SRC_FILES = $(wildcard $(SRC_DIR)/*.c)
 OBJ_FILES = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRC_FILES))
-FILE_SRC = day11.c
-FILE_OBJ = $(BUILD_DIR)/day11.o
+FILE_SRC = day11-revisited.c
+FILE_OBJ = $(BUILD_DIR)/day11-revisited.o
 
 # Rules
 all: $(TARGET)
