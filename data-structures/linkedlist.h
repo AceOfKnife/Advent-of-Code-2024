@@ -17,9 +17,13 @@ void pushLeft(LinkedList* linkedList, long long val);
 
 void pushRight(LinkedList* linkedList, long long val);
 
+void pushRightNode(LinkedList* linkedList, Node* node);
+
 void pushAt(LinkedList* linkedList, long long val, int index);
 
 long long popLeft(LinkedList* linkedList);
+
+Node* popLeftNode(LinkedList* linkedList);
 
 long long popRight(LinkedList* linkedList);
 

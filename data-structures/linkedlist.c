@@ -53,6 +53,18 @@ void pushRight(LinkedList* linkedList, long long val)
     linkedList->size++;
 }
 
+void pushRightNode(LinkedList* linkedList, Node* node)
+{
+    Node* prevTail = linkedList->tail->prev;
+    
+    node->next = linkedList->tail;
+    node->prev = prevTail;
+
+    linkedList->tail->prev = node;
+    prevTail->next = node;
+    linkedList->size++;
+}
+
 void pushAt(LinkedList* linkedList, long long val, int index) 
 {
     if (linkedList->size <= index) {
@@ -93,6 +105,23 @@ long long popLeft(LinkedList* linkedList)
     long long val = node->val;
     free(node);
     return val;
+}
+
+Node* popLeftNode(LinkedList* linkedList)
+{
+    if (linkedList->size == 0) 
+    {
+        printf("ERROR: NO ITEMS IN LIST\n");
+        return NULL;
+    }
+
+    Node* node = linkedList->head->next;
+    linkedList->head->next = node->next;
+    node->next->prev = linkedList->head;
+    linkedList->size--;
+    node->next = NULL;
+    node->prev = NULL;
+    return node;
 }
 
 long long popRight(LinkedList* linkedList)
