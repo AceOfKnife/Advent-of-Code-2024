@@ -18,7 +18,11 @@ void print_arr_2d(int** arr, int width, int height) {
     for (int i = 0; i < height; i++) {
         printf("[ ");
             for (int j = 0; j < width; j++) {
-                printf(" %d ", arr[i][j]);
+                if (arr[i][j] == 0) {
+                    printf(" . ");
+                } else {
+                    printf(" # ");
+                }
             }
         printf("]\n");
     }
@@ -189,7 +193,6 @@ int main() {
     int size = 500; // 12 for test, 500 for input
     int width = 101, height = 103; // 11w 7h for test, 101w 103h for input
     int*** robots = get_robots(fptr, size);
-    fclose(fptr);
     int** map = get_map(width, height);
 
     int seconds = 100;
@@ -231,9 +234,19 @@ int main() {
         if (var_x < 650 && var_y < 650) break;
     }
 
+    reset_map(map, width, height);
+    fptr = fopen("./input.txt", "r");
+    int*** new_robots = get_robots(fptr, size);
+    for (int i = 0; i < size; i++) {
+        move_robot(new_robots, i, map, width, height, 7584);
+    }
+    print_arr_2d(map, width, height);
+
     printf("Minimum time for tree to appear: %d\n", min_time);
 
     free_map(map, height);
     free_robots(robots, size);
+    free_robots(new_robots, size);
+    fclose(fptr);
     return 0;
 }
